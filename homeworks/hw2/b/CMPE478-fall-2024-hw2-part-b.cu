@@ -148,7 +148,7 @@ int main(int argc, char* argv[]) {
         max_diff = thrust::transform_reduce(
             d_diff.begin(),                         // Input start
             d_diff.end(),                          // Input end
-            thrust::abs<double>(),                 // Transformation operator
+            AbsoluteValue(),                 // Transformation operator
             0.0,                                   // Initial value
             thrust::maximum<double>()              // Reduction operator
         );
