@@ -9,6 +9,7 @@
 #include <cmath>                     // For mathematical functions
 #include <iostream>                  // For input/output operations
 
+// Absolute value to transform  
 struct AbsoluteValue {
     __host__ __device__
     double operator()(double x) const {
@@ -58,8 +59,8 @@ struct JacobiIteration {
         // Get values from neighboring points
         double up = u[(i - 1) * (n + 1) + j];      // Point above
         double down = u[(i + 1) * (n + 1) + j];    // Point below
-        double left = u[i * (n + 1) + (j - 1)];    // Point to left
-        double right = u[i * (n + 1) + (j + 1)];   // Point to right
+        double left = u[i * (n + 1) + (j - 1)];    // Point to right
+        double right = u[i * (n + 1) + (j + 1)];   // Point to left
         
         // Return average of neighbors (f(x,y) = 0 in this case)
         return (up + down + left + right) / 4.0;
@@ -131,7 +132,7 @@ int main(int argc, char* argv[]) {
         thrust::transform(
             thrust::make_counting_iterator(0),        // Start index
             thrust::make_counting_iterator(interior_size), // End index
-            thrust::make_discard_iterator(),          // Output iterator (unused)
+            d_u_new.begin(),                         // Output iterator for new values
             JacobiIteration(h, n, d_u.data())        // Functor for iteration
         );
         
@@ -147,7 +148,7 @@ int main(int argc, char* argv[]) {
         max_diff = thrust::transform_reduce(
             d_diff.begin(),                         // Input start
             d_diff.end(),                          // Input end
-            AbsoluteValue(),                // Transformation operator
+            thrust::abs<double>(),                 // Transformation operator
             0.0,                                   // Initial value
             thrust::maximum<double>()              // Reduction operator
         );
