@@ -181,6 +181,7 @@ int main(int argc, char* argv[]) {
     
     // Print results
     std::cout << "Grid size: " << n + 1 << " x " << n + 1 << std::endl;
+    std::cout << "Number of threads: " << num_threads << std::endl;
     std::cout << "Iterations: " << iteration << std::endl;
     std::cout << "Max error: " << max_error << std::endl;
     std::cout << "Execution time: " << total_time << " seconds" << std::endl;
