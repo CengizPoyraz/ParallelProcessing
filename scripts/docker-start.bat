@@ -1,1 +1,1 @@
-docker run -it --mount type=bind,src=//c/Users/cengi/DockerMount,target=/home/root/host --gpus all --cpus=2 --env NVIDIA_DISABLE_REQUIRE=1 cpoyraz/parallel:v1.2 bash
+docker run -it --mount type=bind,src=//c/Users/cengi/DockerMount,target=/home/root/host --gpus all --cpus=2 --cpuset-cpus="0-1" cpoyraz/parallel:v1.2 bash

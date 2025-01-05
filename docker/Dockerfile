@@ -11,5 +11,5 @@ RUN apt-get update && apt upgrade -y
 RUN apt install -y software-properties-common libomp-dev build-essential openmpi-bin openmpi-doc libopenmpi-dev libthrust-dev git curl nano
 
 RUN git clone $PARALLEL_GIT_URL $PARALLEL_HOME
-
+ENV DEBIAN_FRONTEND=
 
